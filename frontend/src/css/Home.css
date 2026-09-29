@@ -1,0 +1,133 @@
+.home {
+    min-height: 100vh;
+    padding: 40px;
+    background-color: #0f0f0f;
+    color: white;
+}
+
+/* Search form */
+.search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.search-input {
+    width: 400px;
+    padding: 12px 16px;
+
+    border: 1px solid #444;
+    border-radius: 8px;
+
+    background-color: #1c1c1c;
+    color: white;
+
+    font-size: 16px;
+    outline: none;
+
+    transition: border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.search-input::placeholder {
+    color: #888;
+}
+
+.search-input:focus {
+    border-color: #777;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+}
+
+/* Search button */
+.search-button {
+    padding: 12px 20px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: #e50914;
+    color: white;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.search-button:hover {
+    background-color: #f40612;
+    transform: translateY(-2px);
+}
+
+.search-button:active {
+    transform: translateY(0);
+}
+
+/* Movie grid */
+.movies-grid {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill,
+            minmax(220px, 1fr));
+
+    gap: 25px;
+
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .home {
+        padding: 20px;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .search-button {
+        width: 100%;
+    }
+
+    .movies-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+
+.loading {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #e50914;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
+
+@keyframes spin {
+    0% {
+        /* You must include the translate values here so it stays centered while rotating */
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        /* You must include the translate values here too */
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
