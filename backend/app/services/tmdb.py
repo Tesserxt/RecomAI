@@ -1,5 +1,4 @@
 from typing import Any
-from urllib.parse import quote
 
 import httpx
 from httpx._models import Response
