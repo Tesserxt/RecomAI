@@ -1,0 +1,239 @@
+body {
+    background-color: #141421;
+    color: white;
+    background-image: url('./assets/Midnight\ Blue\ Cosmic\ Arcs.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.nav1 {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.nav1 a {
+    color: rgb(57, 142, 193);
+    font-size: 22px;
+    padding: 10px;
+}
+
+.nav1 img {
+    width: 20px;
+    align-items: center;
+}
+
+.main {
+    display: flex;
+    padding: 30px;
+    gap: 2vw;
+    background: rgba(0, 0, 0, 0.6);
+
+}
+
+.left img {
+    width: 390px;
+    height: -webkit-fill-available;
+    border-radius: 10px;
+    border: 2px solid #174ea6;
+    box-shadow: 0 0 6px rgba(23, 78, 166, 0.5),
+        0 0 15px rgba(23, 78, 166, 0.25);
+
+}
+
+
+.right {
+    display: flex;
+    width: 75%;
+    gap: 2vw;
+}
+
+.detail li {
+    font-size: 30px;
+    list-style: none;
+}
+
+.detail ol li {
+    font-size: 15px;
+    color: #b1b1e0;
+}
+
+.detail ol {
+    display: flex;
+    gap: 31px;
+    padding: 0;
+}
+
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    border-radius: 15px;
+}
+
+.buttons button {
+    padding: 15px 40px;
+    font-size: 17px;
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+}
+
+.buttons :first-child {
+    background: linear-gradient(to right, #4747c6, #0101ff, #921992);
+    padding: 15px 40px;
+    font-size: 17px;
+    border-radius: 15px;
+    color: white;
+    font-weight: bolder;
+}
+
+
+
+.card {
+    margin-top: 25px;
+    background-color: #11113ec9;
+    padding: 20px 10px 20px 20px;
+    border-radius: 20px;
+    border: 2px solid #131861;
+}
+
+.card li {
+    font-size: 1.3vw;
+    list-style: none;
+    color: #b5afde;
+}
+
+.information {
+    margin-top: 20px;
+    line-height: 1.5;
+    font-size: 16px;
+    color: #c4c4f2;
+}
+
+.sidebyside {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebyside img {
+    width: 45px;
+    height: 38px;
+}
+
+
+.detail {
+    width: 75%;
+}
+
+.cast {
+    width: 25%;
+    border-radius: 20px;
+    padding: 10px;
+    padding-left: 25px;
+    background-color: #11113ec9;
+    border: 2px solid #131861;
+}
+
+.card1 {
+    display: flex;
+    gap: 1.3vw;
+    align-items: center;
+    list-style: none;
+    margin-top: 20px;
+}
+
+.imgcast img {
+    width: 40px;
+    border-radius: 50%;
+}
+
+.castname h3 {
+    font-size: 1vw;
+    margin: 0;
+}
+
+/* Movie grid */
+.movies-grid {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill,
+            minmax(220px, 1fr));
+
+    gap: 25px;
+
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.similar {
+    display: flex;
+    gap: 21px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    list-style: none;
+}
+
+
+@media (max-width:1100px) {
+    .main {
+        display: block;
+    }
+
+    .right {
+        width: 100%;
+        margin-top: 25px;
+    }
+
+    .card li {
+        font-size: 17px;
+    }
+
+    .castname h3 {
+        font-size: 1.6vw;
+    }
+
+    .left img {
+        width: 100%;
+        height: 50vh;
+        margin: 0 auto;
+        display: block;
+    }
+
+
+}
+
+@media (max-width:725px) {
+
+    .right {
+        display: block;
+    }
+
+    .detail,
+    .cast {
+        width: auto;
+        margin-top: 20px;
+    }
+
+    .castname h3 {
+        font-size: 2.6vw;
+    }
+
+    .left img {
+        width: 100%;
+        height: 50vh;
+    }
+
+    .movies-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+
+    }
+
+
+
+}
