@@ -16,8 +16,14 @@ router = APIRouter(
     description="Retrieve a list of currently popular movies from TMDB.",
 )
 async def get_popular_movies_endpoint() -> list[dict[str, Any]]:
-    movies = await get_popular_movies()
-    return movies
+    status_code, data = await get_popular_movies()
+
+    if status_code != 200:
+            raise HTTPException(
+                status_code=502,
+                detail=data
+            )
+    return data["results"]
 
 
 @router.get("/search")
@@ -35,7 +41,14 @@ async def get_movie(
     #     return await get_movie_by_id(movie_id)
 
     if movie_name is not None:
-        return await search_movie(movie_name)
+        status_code, data = await search_movie(movie_name)
+
+        if status_code != 200:
+            raise HTTPException(
+                status_code=502,
+                detail=data
+            )
+        return data["results"]
 
     raise HTTPException(
         status_code=400,

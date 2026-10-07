@@ -12,9 +12,8 @@ async def get_popular_movies():
 
     async with httpx.AsyncClient() as client:
         response: Response = await client.get(url)
-        data = response.json()
-        return data["results"]
 
+    return response.status_code, response.json()
 
 async def search_movie(movie_name) -> Any:
     url = f"{BASE_URL}/search/movie"
@@ -25,5 +24,5 @@ async def search_movie(movie_name) -> Any:
 
     async with httpx.AsyncClient() as client:
         response: Response = await client.get(url, params=params)
-        data = response.json()
-        return data["results"]
+
+    return response.status_code, response.json()
