@@ -1,6 +1,6 @@
 from typing import Any
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
 from ..services.tmdb import get_popular_movies, search_movie
 
@@ -25,10 +25,19 @@ async def get_movie(
     movie_id: int | None = None,
     movie_name: str | None = None,
 ):
+    if movie_id is not None and movie_name is not None:
+        raise HTTPException(
+            status_code=400,
+            detail="Provide either movie_id or movie_name, not both",
+        )
+
     # if movie_id is not None:
     #     return await get_movie_by_id(movie_id)
 
     if movie_name is not None:
         return await search_movie(movie_name)
 
-    return {"error": "Provide movie_id or movie_name"}
+    raise HTTPException(
+        status_code=400,
+        detail="Provide movie_id or movie_name",
+    )
