@@ -15,12 +15,22 @@ async def get_popular_movies():
 
     return response.status_code, response.json()
 
-async def search_movie(movie_name) -> Any:
+
+async def search_movie_by_name(movie_name: str) -> Any:
     url = f"{BASE_URL}/search/movie"
-    params = {
-        "api_key": API_KEY,
-        "query": movie_name
-    } 
+    params = {"api_key": API_KEY, "query": movie_name}
+
+    async with httpx.AsyncClient() as client:
+        response: Response = await client.get(url, params=params)
+
+    return response.status_code, response.json()
+
+
+async def search_movie_by_id(id: int) -> Any:
+    print(type(id))
+    url = f"{BASE_URL}/movie/{id}"
+    print(url)
+    params = {"api_key": API_KEY}
 
     async with httpx.AsyncClient() as client:
         response: Response = await client.get(url, params=params)
