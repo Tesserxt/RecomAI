@@ -13,3 +13,13 @@ export const searchMovies = async (query) => {
   );
   return await response.json();
 };
+
+export const getRecommendations = async (movie_id) => {
+    const response = await fetch(`http://127.0.0.1:8000/api/recommendations/${movie_id}`);
+    return await response.json()
+}
+
+export const searchMovieById = async (movie_id) => {
+  const response = await fetch(`http://127.0.0.1:8000/api/movies/search?movie_id=${movie_id}`);
+  return await response.json();
+};

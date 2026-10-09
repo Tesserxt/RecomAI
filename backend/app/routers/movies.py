@@ -36,18 +36,17 @@ async def get_movie(
         )
 
     if movie_id is not None:
-        print(movie_id)
         status_code, data = await search_movie_by_id(movie_id)
 
         if status_code != 200:
-            raise HTTPException(status_code=502, detail=data)
+            raise HTTPException(status_code=status_code, detail=data)
         return data
 
     if movie_name is not None:
         status_code, data = await search_movie_by_name(movie_name)
 
         if status_code != 200:
-            raise HTTPException(status_code=502, detail=data)
+            raise HTTPException(status_code=status_code, detail=data)
         return data["results"]
 
     raise HTTPException(

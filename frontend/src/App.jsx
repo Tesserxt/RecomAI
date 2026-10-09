@@ -4,7 +4,7 @@ import "./css/movie-info.css"
 import MovieCard from './components/Moviecard'
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
-import MovieInfo from "./pages/ movie-info"
+import MovieInfo from "./pages/movie-info"
 import NavBar from "./components/NavBar";
 import { MovieProvider } from "./context/MovieContext";
 
@@ -20,7 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/favorites" element={<Favorites />} />
-          <Route path="/movie-info" element={<MovieInfo />} />
+          <Route path="/movie-info/:movieId" element={<MovieInfo />} />
         </Routes>
       </main>
     </MovieProvider>
