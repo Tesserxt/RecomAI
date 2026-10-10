@@ -19,7 +19,7 @@ function Navbar() {
 
 function Main({ movieId }) {
   const [movie, setMovie] = useState(null);
-  console.log(movie);
+
   useEffect(() => {
     if (!movieId) return;
 
@@ -58,54 +58,54 @@ function Main({ movieId }) {
             {movie.genres.map((genre, index) => <li key={index}>{genre.name}</li>)}
           </ol>
 
-        {/* </ol> */}
+          {/* </ol> */}
 
-        <div>⭐ {Math.round(movie.vote_average)}/10</div>
+          <div>⭐ {Math.round(movie.vote_average)}/10</div>
 
-        <div className="buttons">
-          <button>▶ Watch Trailer</button>
-          <button>+ Add to Watchlist</button>
+          <div className="buttons">
+            <button>▶ Watch Trailer</button>
+            <button>+ Add to Watchlist</button>
+          </div>
+
+          <div className='information'>{movie.overview}</div>
+          <div className="card">
+            <div className='sidebyside'>
+              <img src="https://cdn-icons-png.flaticon.com/128/2965/2965335.png" alt="" />
+              <h2>AI Summary</h2>
+            </div>
+            <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo reiciendis est dolorum amet perspiciatis beatae consequuntur quisquam quidem et error? Corrupti ad praesentium necessitatibus voluptas dolore? Aperiam, ipsum?</li>
+          </div>
+
         </div>
 
-        <div className='information'>{movie.overview}</div>
-        <div className="card">
-          <div className='sidebyside'>
-            <img src="https://cdn-icons-png.flaticon.com/128/2965/2965335.png" alt="" />
-            <h2>AI Summary</h2>
+        <div className="cast">
+          <h2>Cast</h2>
+
+          <div className='card1'>
+            <div className="imgcast"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEmSOQIobgum-NlWvYCVn-4JUARQWSJi1wQdvQzCaSbA&s=10" alt="" /></div>
+            <div className="castname">
+              <h3>Mattew McConaughey</h3>
+              <li>Cooper</li>
+            </div>
           </div>
-          <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo reiciendis est dolorum amet perspiciatis beatae consequuntur quisquam quidem et error? Corrupti ad praesentium necessitatibus voluptas dolore? Aperiam, ipsum?</li>
+          <div className='card1'>
+            <div className="imgcast"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEmSOQIobgum-NlWvYCVn-4JUARQWSJi1wQdvQzCaSbA&s=10" alt="" /></div>
+            <div className="castname">
+              <h3>Anne Hathaway</h3>
+              <li>Brand</li>
+            </div>
+          </div>
+          <div className='card1'>
+            <div className="imgcast"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEmSOQIobgum-NlWvYCVn-4JUARQWSJi1wQdvQzCaSbA&s=10" alt="" /></div>
+            <div className="castname">
+              <h3>Jessica Chastain</h3>
+              <li>Murph</li>
+            </div>
+          </div>
+
         </div>
 
       </div>
-
-      <div className="cast">
-        <h2>Cast</h2>
-
-        <div className='card1'>
-          <div className="imgcast"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEmSOQIobgum-NlWvYCVn-4JUARQWSJi1wQdvQzCaSbA&s=10" alt="" /></div>
-          <div className="castname">
-            <h3>Mattew McConaughey</h3>
-            <li>Cooper</li>
-          </div>
-        </div>
-        <div className='card1'>
-          <div className="imgcast"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEmSOQIobgum-NlWvYCVn-4JUARQWSJi1wQdvQzCaSbA&s=10" alt="" /></div>
-          <div className="castname">
-            <h3>Anne Hathaway</h3>
-            <li>Brand</li>
-          </div>
-        </div>
-        <div className='card1'>
-          <div className="imgcast"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEmSOQIobgum-NlWvYCVn-4JUARQWSJi1wQdvQzCaSbA&s=10" alt="" /></div>
-          <div className="castname">
-            <h3>Jessica Chastain</h3>
-            <li>Murph</li>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
 
 
 
@@ -120,35 +120,50 @@ function Movie() {
   const { movieId } = useParams()
   const [RecommendedMovies, setRecommendations] = useState([]);
 
-  useEffect(() => {
-    const loadMovies = async () => {
-      const movie_ids_array = await getRecommendations(movieId);
-
-      const movies = await Promise.all(
-        movie_ids_array.map(id => searchMovieById(id))
-      );
-
-      setRecommendations(movies)
-
-    };
-
-    loadMovies();
-  }, [movieId]);
-
+  // Render all at once
   // useEffect(() => {
-  //   setRecommendations([])
   //   const loadMovies = async () => {
   //     const movie_ids_array = await getRecommendations(movieId);
 
-  //     for (const id of movie_ids_array) {
-  //       const movie = await searchMovieById(id);
+  //     const movies = await Promise.all(
+  //       movie_ids_array.map(id => searchMovieById(id))
+  //     );
 
-  //       setRecommendations(prev => [...prev, movie]);
-  //     }
+  //     setRecommendations(movies)
+
   //   };
 
   //   loadMovies();
   // }, [movieId]);
+
+
+  // Render one by one 
+  useEffect(() => {
+    let isCurrent = true
+    setRecommendations([])
+
+    const loadMovies = async () => {
+      const movie_ids_array = await getRecommendations(movieId);
+
+      for (const id of movie_ids_array) {
+
+        if (!isCurrent) break;
+        const movie = await searchMovieById(id);
+      
+        if (isCurrent) {
+          setRecommendations(prev => [...prev, movie]);
+        } else {
+          break;
+        }
+      }
+    };
+
+
+    loadMovies();
+    return () => {
+      isCurrent = false;
+    };
+  }, [movieId]);
 
   // console.log(movies)
 
