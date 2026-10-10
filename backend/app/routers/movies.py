@@ -4,6 +4,8 @@ from fastapi import APIRouter
 
 from ..services.tmdb import get_popular_movies, search_movie
 
+from app.services.tmdb import getCast
+
 router = APIRouter(
     prefix="/api/movies",
     tags=["movies"], 
@@ -32,3 +34,8 @@ async def get_movie(
         return await search_movie(movie_name)
 
     return {"error": "Provide movie_id or movie_name"}
+
+@router.get("/{movie_id}/cast")
+async def get_movie_cast(movie_id:int):
+    cast = await getCast(movie_id)
+    return cast
