@@ -7,7 +7,7 @@ import "../css/movie-info.css";
 function Navbar() {
   return (
     <nav className='nav1'>
-      <a href="#home">home</a>
+      <a href="/">home</a>
       <img src="https://cdn-icons-png.flaticon.com/128/8213/8213522.png" alt="" />
       <a href="#movie">movie</a>
       <img src="https://cdn-icons-png.flaticon.com/128/8213/8213522.png" alt="" />
@@ -50,7 +50,7 @@ function Main() {
               <img src="https://cdn-icons-png.flaticon.com/128/2965/2965335.png" alt="" />
               <h2>Summary</h2>
             </div>
-            <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo reiciendis est dolorum amet perspiciatis beatae consequuntur quisquam quidem et error? Corrupti ad praesentium necessitatibus voluptas dolore? Aperiam, ipsum?</li>
+            <li> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo reiciendis est dolorum amet perspiciatis beatae consequuntur quisquam quidem et error? Corrupti ad praesentium necessitatibus voluptas dolore? Aperiam, ipsum?</li>
           </div>
 
         </div>

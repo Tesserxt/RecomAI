@@ -2,6 +2,8 @@ from typing import Any
 
 from fastapi import APIRouter, HTTPException
 
+from app.services.tmdb import getCast
+
 from ..services.tmdb import get_popular_movies, search_movie_by_id, search_movie_by_name
 
 router = APIRouter(
@@ -53,3 +55,9 @@ async def get_movie(
         status_code=400,
         detail="Provide movie_id or movie_name",
     )
+
+
+@router.get("/{movie_id}/cast")
+async def get_movie_cast(movie_id: int):
+    cast = await getCast(movie_id)
+    return cast

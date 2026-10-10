@@ -1,7 +1,7 @@
 body {
     background-color: #141421;
     color: white;
-    background-image: url('./assets/Midnight\ Blue\ Cosmic\ Arcs.png');
+    background-image: url('/home/codex/Documents/react/RecomAI/frontend/src/assets/Midnight Blue Cosmic Arcs.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -15,7 +15,7 @@ body {
 }
 
 .nav1 a {
-    color: rgb(57, 142, 193);
+    color: rgba(159, 116, 184, 0.91);;
     font-size: 22px;
     padding: 10px;
 }
@@ -63,7 +63,7 @@ body {
 .detail ol {
     display: flex;
     gap: 31px;
-    padding: 0;
+    margin: 15px 0px;
 }
 
 .buttons {
@@ -104,11 +104,12 @@ body {
     font-size: 1.3vw;
     list-style: none;
     color: #b5afde;
+    margin-top: 10px;
 }
 
 .information {
     margin-top: 20px;
-    line-height: 1.5;
+    line-height: 1.6;
     font-size: 16px;
     color: #c4c4f2;
 }
@@ -130,7 +131,6 @@ body {
 }
 
 .cast {
-    width: 25%;
     border-radius: 20px;
     padding: 10px;
     padding-left: 25px;
@@ -174,7 +174,7 @@ body {
     gap: 21px;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin: 20px 0px;
     list-style: none;
 }
 
@@ -229,6 +229,7 @@ body {
     }
 
     .movies-grid {
+        display: none;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
 

@@ -27,7 +27,7 @@ async def search_movie_by_name(movie_name: str) -> Any:
     return response.status_code, response.json()
 
 
-import time
+# import time
 
 
 semaphore = asyncio.Semaphore(3)
@@ -64,3 +64,14 @@ async def search_movie_by_id(id: int) -> Any:
             # print(f"[{id}] ERROR after {elapsed:.2f}s: {e}")
 
             return 502, {"detail": str(e)}
+
+
+async def getCast(movie_id: int) -> Any:
+    url = f"{BASE_URL}/movie/{movie_id}/credits"
+    params = {"api_key": API_KEY}
+
+    async with httpx.AsyncClient() as client:
+        response: Response = await client.get(url, params=params)
+        response.raise_for_status()
+        data = response.json()
+        return data["cast"]
