@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .routers import movies, recommendations
+from .routers import movies, recommendations, ai
 
 app = FastAPI()
 
@@ -17,6 +17,7 @@ app.add_middleware(
 
 app.include_router(movies.router)
 app.include_router(recommendations.router)
+app.include_router(ai.router)
 
 
 @app.get("/")

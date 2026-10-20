@@ -1,3 +1,4 @@
+from pathlib import Path
 from langchain_core.prompts import PromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
@@ -5,8 +6,11 @@ import pandas as pd
 
 load_dotenv()
 
-df = pd.read_csv("../../data/movies(stemd).csv")
 
+BASE_DIR = Path(__file__).resolve().parents[3]
+CSV_PATH = BASE_DIR / "data" / "movies(stemd).csv"
+
+df = pd.read_csv(CSV_PATH, usecols=["tmdb_id", "combined"], index_col="tmdb_id")
 
 llm = ChatGoogleGenerativeAI(model="gemini-3.1-flash-lite", max_output_tokens=200)
 
