@@ -13,6 +13,8 @@ data/processed/
 *.pt
 *.bin
 *.joblib
+*.csv
 
 node_modules/
 .next/
+

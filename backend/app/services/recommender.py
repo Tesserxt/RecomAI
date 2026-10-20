@@ -5,7 +5,7 @@ from numpy import ndarray
 from scipy.sparse import csr_matrix, load_npz
 
 BASE_DIR = Path(__file__).resolve().parents[3]
-X_PATH = BASE_DIR / "artifacts" / "tfidf_X.npz"
+X_PATH = BASE_DIR / "artifacts" / "tfidf_X_stemmed.npz"
 TMDB_IDS_PATH = BASE_DIR / "artifacts" / "tmdb_ids.npy"
 
 
@@ -18,6 +18,7 @@ tmdb_to_index = {tmdb_id: index for index, tmdb_id in enumerate(TMDB_IDS)}
 def recommend_movies(movie_id: int, k: int) -> list[int]:
 
     movie_idx = tmdb_to_index[movie_id]
+
     query: csr_matrix = X[movie_idx]
 
     scores: csr_matrix = X @ query.T

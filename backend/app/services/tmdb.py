@@ -70,8 +70,7 @@ async def getCast(movie_id: int) -> Any:
     url = f"{BASE_URL}/movie/{movie_id}/credits"
     params = {"api_key": API_KEY}
 
-    async with httpx.AsyncClient() as client:
-        response: Response = await client.get(url, params=params)
-        response.raise_for_status()
-        data = response.json()
-        return data["cast"]
+    response: Response = await client.get(url, params=params)
+    response.raise_for_status()
+    data = response.json()
+    return data["cast"]
