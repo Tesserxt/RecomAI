@@ -43,7 +43,7 @@ function Main({ movieId }) {
     }
 
     loadMovie();
-    loadAiSummary()
+    // loadAiSummary()
   }, [movieId]);
 
   // console.log(aiSummary)
@@ -84,7 +84,7 @@ function Main({ movieId }) {
               <img src="https://cdn-icons-png.flaticon.com/128/2965/2965335.png" alt="" />
               <h2>AI Summary</h2>
             </div>
-            <li>{aiSummary}</li>
+            <li><p>{aiSummary}</p></li>
           </div>
 
         </div>
