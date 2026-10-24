@@ -1,4 +1,5 @@
 from fastapi import APIRouter, HTTPException
+from fastapi.responses import StreamingResponse
 
 from ..services.ai import generate_summary
 
@@ -10,13 +11,5 @@ router = APIRouter(
 
 
 @router.get("/summary/{movie_id}", description="AI generated Summary via movie_id.")
-def get_summary(movie_id: int) -> str:
-    summary = generate_summary(movie_id)
-
-    if not summary:
-        raise HTTPException(
-            status_code=404,
-            detail="Movie summary could not be generated.",
-        )
-
-    return summary
+async def get_summary(movie_id: int) -> str:
+    return StreamingResponse(generate_summary(movie_id), media_type="text/plain")

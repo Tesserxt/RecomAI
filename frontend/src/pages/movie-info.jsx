@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { searchMovies, getPopularMovies, getRecommendations, searchMovieById } from "../services/api"
+import { searchMovies, getPopularMovies, getRecommendations, searchMovieById, generateSummary } from "../services/api"
 import MovieCard from "../components/Moviecard";
 import "../css/movie-info.css";
 import { useParams } from "react-router-dom";
@@ -19,23 +19,34 @@ function Navbar() {
 
 function Main({ movieId }) {
   const [movie, setMovie] = useState(null);
+  const [aiSummary, setAiSummary] = useState("");
 
   useEffect(() => {
+    setAiSummary("");
     if (!movieId) return;
 
     const loadMovie = async () => {
       try {
         const data = await searchMovieById(movieId);
         setMovie(data);
+
       } catch (error) {
         console.error("Failed to fetch movie:", error);
       }
     };
 
+    const loadAiSummary = async () => {
+      await generateSummary(movieId, (chunk) => {
+          console.log(chunk)
+          setAiSummary((prev) => prev + chunk);
+        });
+    }
+
     loadMovie();
+    loadAiSummary()
   }, [movieId]);
 
-
+  // console.log(aiSummary)
 
   if (!movie) {
     return <p>Loading movie...</p>;
@@ -73,7 +84,7 @@ function Main({ movieId }) {
               <img src="https://cdn-icons-png.flaticon.com/128/2965/2965335.png" alt="" />
               <h2>AI Summary</h2>
             </div>
-            <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo reiciendis est dolorum amet perspiciatis beatae consequuntur quisquam quidem et error? Corrupti ad praesentium necessitatibus voluptas dolore? Aperiam, ipsum?</li>
+            <li>{aiSummary}</li>
           </div>
 
         </div>
@@ -149,7 +160,7 @@ function Movie() {
 
         if (!isCurrent) break;
         const movie = await searchMovieById(id);
-      
+
         if (isCurrent) {
           setRecommendations(prev => [...prev, movie]);
         } else {
