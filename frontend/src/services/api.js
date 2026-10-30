@@ -24,6 +24,10 @@ export const searchMovieById = async (movie_id) => {
   return await response.json();
 };
 
+export const getAiRecommendations = async (movie_id) => {
+  const response = await fetch(`http://127.0.0.1:8000/api/ai/recommend/${movie_id}`);
+  return await response.json()
+}
 
 export const generateSummary = async (movie_id, onChunk) => {
   const response = await fetch(`http://127.0.0.1:8000/api/ai/summary/${movie_id}`);

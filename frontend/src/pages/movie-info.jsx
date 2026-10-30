@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { searchMovies, getPopularMovies, getRecommendations, searchMovieById, generateSummary } from "../services/api"
+import { searchMovies, getPopularMovies, getRecommendations, searchMovieById, generateSummary, getAiRecommendations } from "../services/api"
 import MovieCard from "../components/Moviecard";
 import "../css/movie-info.css";
 import { useParams } from "react-router-dom";
@@ -22,30 +22,47 @@ function Main({ movieId }) {
   const [aiSummary, setAiSummary] = useState("");
 
   useEffect(() => {
+    let current = true;
+
+    setMovie(null);
     setAiSummary("");
+
     if (!movieId) return;
 
     const loadMovie = async () => {
       try {
         const data = await searchMovieById(movieId);
-        setMovie(data);
 
+        if (current) {
+          setMovie(data);
+        }
       } catch (error) {
-        console.error("Failed to fetch movie:", error);
+        if (current) {
+          console.error("Failed to fetch movie:", error);
+        }
       }
     };
 
     const loadAiSummary = async () => {
-      await generateSummary(movieId, (chunk) => {
-          console.log(chunk)
+      try {
+        await generateSummary(movieId, (chunk) => {
+          if (!current) return;
           setAiSummary((prev) => prev + chunk);
         });
-    }
+      } catch (error) {
+        if (current) {
+          console.error("Failed to generate AI summary:", error);
+        }
+      }
+    };
 
     loadMovie();
-    // loadAiSummary()
-  }, [movieId]);
+    // loadAiSummary();
 
+    return () => {
+      current = false;
+    };
+  }, [movieId]);
   // console.log(aiSummary)
 
   if (!movie) {
@@ -130,6 +147,7 @@ function Movie() {
 
   const { movieId } = useParams()
   const [RecommendedMovies, setRecommendations] = useState([]);
+  const [AiRecommendedMovies, setAiRecommendations] = useState([]);
 
   // Render all at once
   // useEffect(() => {
@@ -169,21 +187,53 @@ function Movie() {
       }
     };
 
+    const loadAiMovies = async () => {
+      const ai_recoms = await getAiRecommendations(movieId)
+      const movie_array = ai_recoms.ranked_candidates.ranked_candidates
+
+      setAiRecommendations(movie_array)
+
+
+    }
+
 
     loadMovies();
+    loadAiMovies();
+
     return () => {
       isCurrent = false;
     };
   }, [movieId]);
 
-  // console.log(movies)
 
+
+
+  // const aiMovieIds = new Set(AiRecommendedMovies.map(aiMovie => aiMovie.tmdb_id));
+  // const ai_movies = RecommendedMovies.filter(movie => aiMovieIds.has(movie.id));
+
+  const movieLookup = new Map(
+    RecommendedMovies.map(movie => [movie.id, movie])
+  );
+
+  const nnn = AiRecommendedMovies
+    .map(aiMovie => {
+      const fullMovie = movieLookup.get(aiMovie.tmdb_id);
+
+      return fullMovie
+        ? {
+          ...fullMovie,
+          rank: aiMovie.rank,
+          reason: aiMovie.reason,
+        }
+        : null;
+    })
+    .filter(Boolean);
+  console.log(nnn)
 
   return (
     <>
       {/* <Navbar /> */}
       <Main movieId={movieId} />
-
       <div className="similar">
         <img src="https://cdn-icons-png.flaticon.com/128/13963/13963168.png" width="30px" height="30px" alt="" />
         <h2>similar movies</h2>
@@ -192,10 +242,24 @@ function Movie() {
 
       <div className="movies-grid">
 
+        {nnn.map(movie => (
+          <MovieCard movie={movie} key={movie.id} />
+        ))}
+      </div>
+
+      <div className="similar">
+        <img src="https://cdn-icons-png.flaticon.com/128/13963/13963168.png" width="30px" height="30px" alt="" />
+        <h2>similar movies</h2>
+      </div>
+
+      <div className="movies-grid">
+
         {RecommendedMovies.map(movie => (
           <MovieCard movie={movie} key={movie.id} />
         ))}
       </div>
+
+
     </>
   );
 }

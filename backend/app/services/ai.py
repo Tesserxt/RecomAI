@@ -1,9 +1,12 @@
+from collections.abc import AsyncIterable
 from pathlib import Path
-from typing import AsyncIterable
+
+import pandas as pd
+from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
-from dotenv import load_dotenv
-import pandas as pd
+
+from ..workflows.ai_recom import movie_graph
 
 load_dotenv()
 
@@ -36,3 +39,9 @@ async def generate_summary(movie_id: int) -> AsyncIterable[str]:
             "Chunk content:", chunk.content, chunk.text
         )  # Debugging line to check the chunk content
         yield chunk.text
+
+
+def generate_ai_recoms(movie_id: int):
+    state = {"movie_id": movie_id}
+    result = movie_graph.invoke(state)
+    return result
