@@ -69,6 +69,13 @@ function Main({ movieId }) {
     return <p>Loading movie...</p>;
   }
 
+  const year = movie.release_date?.slice(0, 4) || "N/A";
+  const genres = movie.genres.map((genre, index) => <li key={index}>{genre.name}</li>);
+  const rating = movie.vote_average ? movie.vote_average.toFixed(1) : "N/A";
+  const trailerUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(
+    `${movie.title} ${year} official trailer`
+  )}`;
+
   return (
     <section className="main">
 
@@ -82,16 +89,16 @@ function Main({ movieId }) {
         <div className="detail">
           <li>{movie.title}</li>
           <ol>
-            <li>{movie.release_date?.split("-")[0] || "N/A"}</li>
-            {movie.genres.map((genre, index) => <li key={index}>{genre.name}</li>)}
+            <li>{year}</li>
+            {genres}
           </ol>
 
           {/* </ol> */}
 
-          <div>⭐ {Math.round(movie.vote_average)}/10</div>
+          <div>⭐ {rating}/10</div>
 
           <div className="buttons">
-            <button>▶ Watch Trailer</button>
+            <button onClick={() => window.location.href=trailerUrl}>▶ Watch Trailer</button>
             <button>+ Add to Watchlist</button>
           </div>
 
@@ -236,8 +243,7 @@ function Movie() {
       <Main movieId={movieId} />
       <div className="similar">
         <img src="https://cdn-icons-png.flaticon.com/128/13963/13963168.png" width="30px" height="30px" alt="" />
-        <h2>similar movies</h2>
-        <li>( AI Recommended )</li>
+        <h2>AI Recommended</h2>
       </div>
 
       <div className="movies-grid">

@@ -103,3 +103,21 @@
     color: #999;
     font-size: 14px;
 }
+
+.sidebyside {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.summary-card {
+    margin-top: 25px;
+    background-color: #11113ec9;
+    padding: 20px 10px 20px 20px;
+    border-radius: 20px;
+    border: 2px solid #131861;
+}
+
+p {
+    font-size: 17px;
+}
