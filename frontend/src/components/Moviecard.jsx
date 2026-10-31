@@ -22,7 +22,6 @@ function MovieCard({ movie }) {
                             ♥
                         </button>
                     </div>
-                    <p>why u may like it</p>
                 </div>
 
                 <div className="movie-info">
@@ -30,17 +29,21 @@ function MovieCard({ movie }) {
                     <p>{movie.release_date?.split("-")[0] || "N/A"}</p>
                 </div>
 
-                {movie.reason !== undefined ? (
-                    <div className="card">
-                        <div className="sidebyside">
-                            <img src="https://cdn-icons-png.flaticon.com/128/2965/2965335.png" alt="AI Icon" />
-                            <h3>Why its Relevant?</h3>
+
+                {movie.reason !== undefined && (
+                    <div className="ai-reason">
+                        <div className="ai-reason-header">
+                            <img
+                                src="https://cdn-icons-png.flaticon.com/128/2965/2965335.png"
+                                alt="AI"
+                            />
+                            <span>Why it may relevant?</span>
                         </div>
-                        <li><p>{movie.reason}</p></li>
+
+                        <p>{movie.reason}</p>
                     </div>
-                ) : (
-                    <p></p>
                 )}
+
 
 
             </div>
