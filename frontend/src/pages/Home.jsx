@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { searchMovies, getPopularMovies } from "../services/api";
 import MovieCard from "../components/Moviecard";
 import "../css/Home.css";
@@ -16,7 +16,7 @@ function Home() {
                 setLoading(true);
                 const popularMovies = await getPopularMovies();
                 setHomeMovies(popularMovies);
-                
+
                 await new Promise((resolve) => setTimeout(resolve, 3000));
             } catch (err) {
                 setError("Failed to Load movies...");
@@ -29,20 +29,63 @@ function Home() {
         loadPopularMovies();
     }, []);
 
-    const handleSearch = async (e) => {
-        e.preventDefault();
 
-        if (!searchQuery.trim()) return;
+
+    const ws = useRef(null);
+
+    useEffect(() => {
+        ws.current = new WebSocket("ws://localhost:8000/ws");
+
+        ws.current.onopen = () => {
+            console.log("WebSocket connected");
+        };
+
+        ws.current.onmessage = (event) => {
+            const action = JSON.parse(event.data);
+
+            console.log("Received:", action);
+
+            if (action.type === "search_movie") {
+                // setSearchQuery(action.query);
+                
+                typeAndSearch(action.query);
+            }
+        };
+
+        ws.current.onclose = () => {
+            console.log("WebSocket disconnected");
+        };
+
+        return () => ws.current?.close();
+    }, []);
+
+    async function typeAndSearch(query) {
+        setSearchQuery("");
+
+        for (const char of query) {
+            setSearchQuery(prev => prev + char);
+
+            await new Promise(resolve =>
+                setTimeout(resolve, 1000)
+            );
+        }
+
+        //await handleSearch(query);
+    }
+
+    const handleSearch = async (query) => {
+
+        if (!query.trim()) return;
         if (loading) return;
-       
-        try { 
+
+        try {
             setLoading(true);
-            const searchResults = await searchMovies(searchQuery);
+            const searchResults = await searchMovies(query);
             setSearchedMovies(searchResults);
             setError(null);
-            
+
             await new Promise((resolve) => setTimeout(resolve, 3000));
-        } catch(err) {
+        } catch (err) {
             console.log(err);
             setError("Failed to search movies...");
         } finally {
@@ -50,15 +93,18 @@ function Home() {
         }
     };
 
-   
+
     // If there is text in the search box and we have searched results, show them. Otherwise, show home movies.
-    const moviesToDisplay = searchQuery.trim() && searchedMovies.length > 0 
-        ? searchedMovies 
+    const moviesToDisplay = searchQuery.trim() && searchedMovies.length > 0
+        ? searchedMovies
         : homeMovies;
 
     return (
         <div className="home">
-            <form onSubmit={handleSearch} className="search-form">
+            <form onSubmit={(e) => {
+                e.preventDefault();
+                handleSearch(searchQuery);
+            }} className="search-form">
                 <input
                     value={searchQuery}
                     // If the user backspaces and clears out the input box, 

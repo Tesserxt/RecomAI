@@ -37,10 +37,11 @@ function MovieCard({ movie }) {
                                 src="https://cdn-icons-png.flaticon.com/128/2965/2965335.png"
                                 alt="AI"
                             />
-                            <span>Why it may relevant?</span>
+                            <span> {movie.reason}</span>
+                            {/* <span>Why it may relevant?</span> */}
                         </div>
 
-                        <p>{movie.reason}</p>
+                       
                     </div>
                 )}
 

@@ -70,6 +70,7 @@ dependencies = [
     { name = "scipy", version = "1.17.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
     { name = "scipy", version = "1.18.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
     { name = "tavily-python" },
+    { name = "websockets" },
 ]
 
 [package.metadata]
@@ -82,6 +83,7 @@ requires-dist = [
     { name = "python-dotenv", specifier = ">=1.2.4" },
     { name = "scipy", specifier = ">=1.17.1" },
     { name = "tavily-python", specifier = ">=0.8.5" },
+    { name = "websockets", specifier = ">=16.1.1" },
 ]
 
 [[package]]

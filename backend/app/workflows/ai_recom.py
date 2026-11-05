@@ -29,7 +29,7 @@ class Movie(BaseModel):
     title: str
     reason: str = Field(
         description="Why i may like this movie based on its similarity "
-        "to the input movie in succinct response."
+        "to the input movie in 10 words max."
     )
 
 
@@ -48,7 +48,7 @@ class MState(TypedDict):
 def retrieve_candidates(state: MState):
     response = requests.get(
         f"http://127.0.0.1:8000/api/recommendations/{state['movie_id']}",
-        params={"k": 10},
+        params={"k": 3},
         timeout=10,
     )
     response.raise_for_status()
