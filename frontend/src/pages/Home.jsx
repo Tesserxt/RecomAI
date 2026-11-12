@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { searchMovies, getPopularMovies } from "../services/api";
+import { connectSocket, sendMessage } from "../services/socket";
 import MovieCard from "../components/Moviecard";
 import "../css/Home.css";
 
@@ -34,27 +35,17 @@ function Home() {
     const ws = useRef(null);
 
     useEffect(() => {
-        ws.current = new WebSocket("ws://localhost:8000/ws");
+        ws.current = connectSocket({
+            onOpen: () => {
+                sendMessage(ws.current, {
+                    query: "recommend movies like ramayana."
+                });
+            },
 
-        ws.current.onopen = () => {
-            console.log("WebSocket connected");
-        };
-
-        ws.current.onmessage = (event) => {
-            const action = JSON.parse(event.data);
-
-            console.log("Received:", action);
-
-            if (action.type === "search_movie") {
-                // setSearchQuery(action.query);
-                
-                typeAndSearch(action.query);
+            onMessage: async (action) => {
+               await typeAndSearch(action.search_query);
             }
-        };
-
-        ws.current.onclose = () => {
-            console.log("WebSocket disconnected");
-        };
+        });
 
         return () => ws.current?.close();
     }, []);
@@ -66,24 +57,23 @@ function Home() {
             setSearchQuery(prev => prev + char);
 
             await new Promise(resolve =>
-                setTimeout(resolve, 1000)
+                setTimeout(resolve, 600)
             );
         }
 
-        //await handleSearch(query);
+        await handleSearch(query);
     }
 
-    const handleSearch = async (query) => {
-
+    const handleSearch = async (query) => { 
         if (!query.trim()) return;
+        console.log(loading)
         if (loading) return;
-
+        
         try {
             setLoading(true);
             const searchResults = await searchMovies(query);
             setSearchedMovies(searchResults);
             setError(null);
-
             await new Promise((resolve) => setTimeout(resolve, 3000));
         } catch (err) {
             console.log(err);

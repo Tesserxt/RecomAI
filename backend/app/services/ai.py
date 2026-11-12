@@ -3,10 +3,12 @@ from pathlib import Path
 
 import pandas as pd
 from dotenv import load_dotenv
+from fastapi import WebSocket
 from langchain_core.prompts import PromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
 
 from ..workflows.ai_recom import movie_graph
+from ..workflows.ai_search import ai_direct_search_workflow
 
 load_dotenv()
 
@@ -44,4 +46,9 @@ async def generate_summary(movie_id: int) -> AsyncIterable[str]:
 def generate_ai_recoms(movie_id: int):
     state = {"movie_id": movie_id}
     result = movie_graph.invoke(state)
+    return result
+
+
+async def search_movie_directly(input: str):
+    result = await ai_direct_search_workflow.ainvoke({"input": input})
     return result

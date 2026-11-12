@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.services.ai import search_movie_directly
+
 from .routers import ai, movies, recommendations
 
 app = FastAPI()
@@ -77,14 +79,13 @@ async def agent_websocket(websocket: WebSocket):
 
     try:
         # Send immediately after connection
-        await websocket.send_json({
-            "type": "search_movie",
-            "query": "Batman",
-        })
 
         while True:
             message = await websocket.receive_json()
             print("Received:", message)
+
+            # result = await search_movie_directly(message["query"])
+            await websocket.send_json({"search_query": "Ramayana"})
 
     except WebSocketDisconnect:
         print("Client disconnected")
