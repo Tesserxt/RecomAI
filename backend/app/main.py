@@ -7,16 +7,11 @@ from .routers import ai, movies, recommendations
 
 app = FastAPI()
 
-origins = [
-    "http://127.0.0.1:5173",
-    "http://localhost:5173",
-    "https://recom-ai-ruddy.vercel.app",
-    "https://recom-rekg4lq70-tesserxt.vercel.app",
-]
+origins = ["http://127.0.0.1:5173", "http://localhost:5173"]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
