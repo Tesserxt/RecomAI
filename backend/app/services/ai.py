@@ -1,22 +1,16 @@
 from collections.abc import AsyncIterable
-from pathlib import Path
 
-import pandas as pd
 from dotenv import load_dotenv
-from fastapi import WebSocket
 from langchain_core.prompts import PromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
+
+from app.services.csv_loader import movies_df as df
 
 from ..workflows.ai_recom import movie_graph
 from ..workflows.ai_search import ai_direct_search_workflow
 
 load_dotenv()
 
-
-BASE_DIR = Path(__file__).resolve().parents[3]
-CSV_PATH = BASE_DIR / "data" / "movies(stemd).csv"
-
-df = pd.read_csv(CSV_PATH, usecols=["tmdb_id", "combined"], index_col="tmdb_id")
 
 llm = ChatGoogleGenerativeAI(model="gemini-3.1-flash-lite", max_output_tokens=200)
 

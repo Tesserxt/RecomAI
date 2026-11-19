@@ -1,26 +1,17 @@
 import json
-from pathlib import Path
 from typing import TypedDict
 
-import pandas as pd
 import requests
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
 from pydantic import BaseModel, Field
 
+from app.services.csv_loader import movies_df as df
+
 load_dotenv()
 
 
-CURRENT_DIR = Path(__file__).resolve().parent
-DATA_PATH = CURRENT_DIR.parents[2] / "data" / "movies(stemd).csv"
-
 llm = ChatGoogleGenerativeAI(model="gemini-3.1-flash-lite")
-
-
-df = pd.read_csv(
-    DATA_PATH,
-    index_col="tmdb_id",
-)
 
 
 class Movie(BaseModel):
