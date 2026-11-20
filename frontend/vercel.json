@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://passengers-roles-dir-several.trycloudflare.com/api/:path*"
+      "destination": "https://expo-dietary-rapid-gage.trycloudflare.com/api/:path*"
     }
   ]
 }
