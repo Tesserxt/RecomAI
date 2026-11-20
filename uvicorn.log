@@ -1,27 +1,46 @@
-INFO:     Started server process [49126]
+INFO:     Started server process [50792]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-[Application startup csv_loader.py] RSS: 95.71 MB
-[After movies.csv] RSS: 714.61 MB
-INFO:     127.0.0.1:38390 - "GET /docs HTTP/1.1" 200 OK
-INFO:     127.0.0.1:38394 - "GET /docs HTTP/1.1" 200 OK
-INFO:     54.176.88.139:0 - "GET /api/movies/popular HTTP/1.1" 200 OK
-INFO:     54.183.149.156:0 - "WebSocket /ws" [accepted]
-INFO:     connection open
+[Application startup csv_loader.py] RSS: 95.61 MB
+[After movies.csv] RSS: 714.30 MB
+INFO:     127.0.0.1:33708 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33720 - "GET /docs HTTP/1.1" 200 OK
+INFO:     54.67.7.138:0 - "GET /api/movies/popular HTTP/1.1" 200 OK
 INFO:     13.57.148.235:0 - "WebSocket /ws" [accepted]
 INFO:     connection open
-INFO:     54.67.124.107:0 - "GET /api/movies/popular HTTP/1.1" 200 OK
+INFO:     54.183.149.156:0 - "WebSocket /ws" [accepted]
+INFO:     connection open
+Received: {'query': 'recommend movies like ramayana.'}
+Received: {'query': 'recommend movies like ramayana.'}
+Client disconnected
+Client disconnected
+INFO:     54.67.7.138:0 - "GET /api/movies/popular HTTP/1.1" 200 OK
+INFO:     13.233.109.215:0 - "GET /api/movies/popular HTTP/1.1" 200 OK
 INFO:     157.20.229.171:0 - "WebSocket /ws" [accepted]
 INFO:     connection open
 Received: {'query': 'recommend movies like ramayana.'}
-Received: {'query': 'recommend movies like ramayana.'}
 Client disconnected
-Client disconnected
-Received: {'query': 'recommend movies like ramayana.'}
-INFO:     3.111.245.115:0 - "GET /api/movies/popular HTTP/1.1" 200 OK
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [49126]
-Client disconnected
+INFO:     3.111.245.115:0 - "GET /api/recommendations/969681 HTTP/1.1" 200 OK
+INFO:     13.233.109.215:0 - "GET /api/movies/search?movie_id=969681 HTTP/1.1" 200 OK
+INFO:     3.111.245.115:0 - "GET /api/ai/recommend/969681 HTTP/1.1" 200 OK
+INFO:     13.233.109.215:0 - "GET /api/movies/search?movie_id=634649 HTTP/1.1" 200 OK
+INFO:     13.126.252.240:0 - "GET /api/movies/search?movie_id=315635 HTTP/1.1" 200 OK
+INFO:     13.233.109.215:0 - "GET /api/movies/search?movie_id=102382 HTTP/1.1" 200 OK
+INFO:     13.126.252.240:0 - "GET /api/movies/search?movie_id=429617 HTTP/1.1" 200 OK
+INFO:     3.111.245.115:0 - "GET /api/movies/search?movie_id=557 HTTP/1.1" 200 OK
+INFO:     3.111.245.115:0 - "GET /api/movies/search?movie_id=569094 HTTP/1.1" 200 OK
+INFO:     3.111.245.115:0 - "GET /api/movies/search?movie_id=1685768 HTTP/1.1" 200 OK
+INFO:     13.233.109.215:0 - "GET /api/movies/search?movie_id=225914 HTTP/1.1" 200 OK
+INFO:     3.111.245.115:0 - "GET /api/movies/search?movie_id=225925 HTTP/1.1" 200 OK
+INFO:     13.126.252.240:0 - "GET /api/movies/search?movie_id=758025 HTTP/1.1" 200 OK
+INFO:     13.233.109.215:0 - "GET /api/movies/search?movie_id=724565 HTTP/1.1" 200 OK
+INFO:     3.111.245.115:0 - "GET /api/movies/search?movie_id=399712 HTTP/1.1" 200 OK
+INFO:     13.233.109.215:0 - "GET /api/movies/search?movie_id=559 HTTP/1.1" 200 OK
+INFO:     3.111.245.115:0 - "GET /api/movies/search?movie_id=626329 HTTP/1.1" 200 OK
+INFO:     3.111.245.115:0 - "GET /api/movies/search?movie_id=1737233 HTTP/1.1" 200 OK
+INFO:     3.111.245.115:0 - "GET /api/movies/search?movie_id=284053 HTTP/1.1" 200 OK
+INFO:     13.233.109.215:0 - "GET /api/movies/search?movie_id=283995 HTTP/1.1" 200 OK
+INFO:     3.111.245.115:0 - "GET /api/movies/search?movie_id=126712 HTTP/1.1" 200 OK
+INFO:     13.126.252.240:0 - "GET /api/movies/search?movie_id=413279 HTTP/1.1" 200 OK
+INFO:     13.233.109.215:0 - "GET /api/movies/search?movie_id=1732813 HTTP/1.1" 200 OK

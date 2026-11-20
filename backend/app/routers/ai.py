@@ -17,7 +17,7 @@ async def get_summary(movie_id: int) -> str:
 
 @router.get("/recommend/{movie_id}", description="AI recommendations for movie.")
 def get_ai_recommendaions(movie_id: int):
-    # return generate_ai_recoms(movie_id)
+    return generate_ai_recoms(movie_id)
     return {
         "movie_id": 272,
         "movie_title": "Batman Begins",

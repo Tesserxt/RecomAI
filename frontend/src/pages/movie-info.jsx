@@ -57,7 +57,7 @@ function Main({ movieId }) {
     };
 
     loadMovie();
-    // loadAiSummary();
+    loadAiSummary();
 
     return () => {
       current = false;
