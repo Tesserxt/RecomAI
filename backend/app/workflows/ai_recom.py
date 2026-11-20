@@ -39,7 +39,7 @@ class MState(TypedDict):
 def retrieve_candidates(state: MState):
     response = requests.get(
         f"http://127.0.0.1:8000/api/recommendations/{state['movie_id']}",
-        params={"k": 3},
+        params={"k": 5},
         timeout=10,
     )
     response.raise_for_status()
