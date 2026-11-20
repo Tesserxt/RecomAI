@@ -1,6 +1,8 @@
 const WS_URL =
     import.meta.env.VITE_WS_URL || "ws://localhost:8000/ws";
 
+console.log(WS_URL , "   WS_+URL")
+
 export function connectSocket({ onMessage, onOpen, onClose }) {
     const ws = new WebSocket(WS_URL);
 
