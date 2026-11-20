@@ -1,15 +1,14 @@
-const API_KEY = "e62093398aef57e164bffbc5cc87ce6f";
-const BASE_URL = "https://api.themoviedb.org/3";
+const API_BASE_URL = import.meta.env.VITE_API_URL ?? "";
 
-
-
-export const getPopularMovies = async () => {
-    const response = await fetch("http://127.0.0.1:8000/api/movies/popular");
-    return await response.json()
-}
-
-export const searchMovies = async (query) => {
-  const response = await fetch(`http://127.0.0.1:8000/api/movies/search?movie_name=${query}`
-  );
-  return await response.json();
+const request = async (path) => {
+  const response = await fetch(`${API_BASE_URL}${path}`);
+  if (!response.ok) {
+    throw new Error(`Request to ${path} failed with status ${response.status}`);
+  }
+  return response.json();
 };
+
+export const getPopularMovies = () => request("/api/movies/popular");
+
+export const searchMovies = (query) =>
+  request(`/api/movies/search?movie_name=${encodeURIComponent(query)}`);
