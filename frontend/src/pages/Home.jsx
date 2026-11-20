@@ -20,7 +20,7 @@ function Home() {
 
                 await new Promise((resolve) => setTimeout(resolve, 3000));
             } catch (err) {
-                setError("Failed to Load movies...");
+                setError("Failed to Load movies (maybe PC is shutdown)...");
                 console.log(err);
             } finally {
                 setLoading(false);
