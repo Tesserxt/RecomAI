@@ -4,35 +4,36 @@ const BASE_URL = "https://api.themoviedb.org/3";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 console.log(API_URL , "   API_+URL")
+
 export const getPopularMovies = async () => {
-  const response = await fetch(`${API_URL}/api/movies/popular`);
+  const response = await fetch(`/api/movies/popular`);
   return await response.json();
 };
 
 export const searchMovies = async (query) => {
   const response = await fetch(
-    `${API_URL}/api/movies/search?movie_name=${encodeURIComponent(query)}`
+    `/api/movies/search?movie_name=${encodeURIComponent(query)}`
   );
   return await response.json();
 };
 
 export const getRecommendations = async (movie_id) => {
-  const response = await fetch(`${API_URL}/api/recommendations/${movie_id}`);
+  const response = await fetch(`/api/recommendations/${movie_id}`);
   return await response.json();
 };
 
 export const searchMovieById = async (movie_id) => {
-  const response = await fetch(`${API_URL}/api/movies/search?movie_id=${movie_id}`);
+  const response = await fetch(`/api/movies/search?movie_id=${movie_id}`);
   return await response.json();
 };
 
 export const getAiRecommendations = async (movie_id) => {
-  const response = await fetch(`${API_URL}/api/ai/recommend/${movie_id}`);
+  const response = await fetch(`/api/ai/recommend/${movie_id}`);
   return await response.json();
 };
 
 export const generateSummary = async (movie_id, onChunk) => {
-  const response = await fetch(`${API_URL}/api/ai/summary/${movie_id}`);
+  const response = await fetch(`/api/ai/summary/${movie_id}`);
 
   if (!response.ok) {
     throw new Error(`Request failed: ${response.status}`);
